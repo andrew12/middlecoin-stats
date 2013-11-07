@@ -6,9 +6,10 @@ from time import strptime
 from calendar import timegm
 from datetime import timedelta
 
-WEEK_FILE = '/home/andrew/middlecoin/week.json'
-TOTAL_FILE = '/home/andrew/middlecoin/stats.json'
-USERS_PATH = '/home/andrew/middlecoin/users'
+dirname = os.path.dirname(os.path.abspath(__file__))
+
+with open(os.path.join(dirname, 'config.json'), 'r') as f:
+  cfg = json.load(f)
 
 TOTAL_ORDER = ['totalImmatureBalance', 'totalUnexchangedBalance',
                'totalBalance', 'totalPaidOut', 'totalMegahashesPerSecond',
@@ -27,33 +28,22 @@ def convert(x):
 
 def write(address, timestamp, report):
   if address is TOTAL:
-    path = TOTAL_FILE
+    path = cfg.total
     order = TOTAL_ORDER
   else:
-    path = os.path.join(USERS_PATH, address + '.json')
+    path = os.path.join(cfg.users, address + '.json')
     order = USERS_ORDER
   if os.path.exists(path):
     with open(path, 'r') as f:
       history = json.load(f)
   else:
-    #print('{} does not exist'.format(path))
     history = []
   output = [convert(report.get(key, 0)) for key in order]
   if not history or history[-1][1:] != output:
-    #print('{} has changed'.format(path))
     history.append([timestamp] + output)
     with open(path, 'w') as f:
       json.dump(history, f, separators=(',', ':'))
-    if address is TOTAL:
-      week = []
-      maxdelta = timedelta(days=7)
-      for row in history:
-        if timedelta(seconds=(timestamp - row[0])) < maxdelta:
-          week.append(row)
-      with open(WEEK_FILE, 'w') as f:
-        json.dump(week, f, separators=(',', ':'))
 
-#print('fetching')
 data = requests.get('http://middlecoin.com/json', timeout=10).json()
 timestamp = timegm(strptime(data['time'], '%Y-%m-%d %H:%M:%S'))
 
