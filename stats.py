@@ -28,10 +28,10 @@ def convert(x):
 
 def write(address, timestamp, report):
   if address is TOTAL:
-    path = cfg.total
+    path = cfg['total']
     order = TOTAL_ORDER
   else:
-    path = os.path.join(cfg.users, address + '.json')
+    path = os.path.join(cfg['users'], address + '.json')
     order = USERS_ORDER
   if os.path.exists(path):
     with open(path, 'r') as f:
