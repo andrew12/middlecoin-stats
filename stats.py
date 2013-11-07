@@ -43,6 +43,14 @@ def write(address, timestamp, report):
     history.append([timestamp] + output)
     with open(path, 'w') as f:
       json.dump(history, f, separators=(',', ':'))
+    if address is TOTAL:
+      week = []
+      maxdelta = timedelta(days=7)
+      for row in history:
+        if timedelta(seconds=(timestamp - row[0])) < maxdelta:
+          week.append(row)
+      with open(cfg['week'], 'w') as f:
+        json.dump(week, f, separators=(',', ':'))
 
 data = requests.get('http://middlecoin.com/json', timeout=10).json()
 timestamp = timegm(strptime(data['time'], '%Y-%m-%d %H:%M:%S'))
