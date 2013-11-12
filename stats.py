@@ -55,6 +55,6 @@ def write(address, timestamp, report):
 data = requests.get('http://middlecoin.com/json', timeout=10).json()
 timestamp = timegm(strptime(data['time'], '%Y-%m-%d %H:%M:%S'))
 
-write(TOTAL, timestamp, data)
-for address, rep in data['report']:
-  write(address, timestamp, rep)
+# write(TOTAL, timestamp, data)
+# for address, rep in data['report']:
+#   write(address, timestamp, rep)
