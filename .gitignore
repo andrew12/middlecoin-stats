@@ -1,3 +1,4 @@
 stats.json
 users/*.json
 *.min.js
+.vscode

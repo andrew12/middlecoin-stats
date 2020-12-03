@@ -1,8 +1,34 @@
-body      { font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; }
-h1, h2    { font-size: 1.4em; }
-p, ul     { font-size: 0.8em; }
-li        { font-size: 1.0em; display: inline; }
-p, ul     { text-align: center; }
-ul        { margin: 0; padding: 0; list-style-type: none; }
-#balance  { width: 1024px; height: 512px; margin: 50px auto 20px auto; }
-#hashrate { width: 1024px; height: 512px; margin: 50px auto 20px auto; }
+body {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+h1,
+h2 {
+  font-size: 1.4em;
+}
+p,
+ul {
+  font-size: 0.8em;
+}
+li {
+  font-size: 1em;
+  display: inline;
+}
+p,
+ul {
+  text-align: center;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+#balance {
+  width: 1024px;
+  height: 512px;
+  margin: 50px auto 20px auto;
+}
+#hashrate {
+  width: 1024px;
+  height: 512px;
+  margin: 50px auto 20px auto;
+}
